@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+<title>소바공방 평촌점 일용직 근무내역</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#f3f4f6;
+  font-family:'Malgun Gothic',sans-serif;
+  color:#222;
+}
+
+.header{
+  background:linear-gradient(135deg,#2b1d12,#7c2d12);
+  color:#fff;
+  padding:26px 18px;
+  border-bottom-left-radius:28px;
+  border-bottom-right-radius:28px;
+  box-shadow:0 4px 18px rgba(0,0,0,.15);
+}
+
+.header h1{
+  margin:0;
+  font-size:26px;
+}
+
+.header p{
+  margin-top:8px;
+  font-size:13px;
+  opacity:.9;
+}
+
+.container{
+  max-width:760px;
+  margin:0 auto;
+  padding:18px;
+}
+
+.card{
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
+  margin-bottom:18px;
+}
+
+h2{
+  margin:0 0 16px;
+  font-size:22px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:bold;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  margin-top:6px;
+  border:1px solid #d1d5db;
+  border-radius:14px;
+  padding:13px;
+  font-size:15px;
+  background:#fff;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.full{
+  grid-column:1 / -1;
+}
+
+button{
+  width:100%;
+  border:none;
+  border-radius:16px;
+  background:#7c2d12;
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+  padding:15px;
+  margin-top:16px;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+}
+
+.result-box{
+  margin-top:14px;
+  display:grid;
+  gap:10px;
+}
+
+.worker-item{
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:12px;
+  cursor:pointer;
+  background:#fafafa;
+}
+
+.worker-item:hover{
+  background:#f3f4f6;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:22px;
+  height:22px;
+  padding:0 8px;
+  border-radius:999px;
+  background:#dc2626;
+  color:#fff;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.summary-card{
+  background:#fff;
+  border-radius:18px;
+  padding:18px 10px;
+  text-align:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.summary-card strong{
+  display:block;
+  font-size:28px;
+  color:#7c2d12;
+}
+
+.summary-card span{
+  display:block;
+  margin-top:6px;
+  font-size:13px;
+  color:#666;
+}
+
+@media(max-width:760px){
+
+  .container{
+    padding:14px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .summary{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>소바공방 평촌점 일용직 근무내역</h1>
+  <p>일용직 근무내역 등록 및 미지급 관리</p>
+</div>
+
+<div class="container">
+
+  <div class="summary">
+
+    <div class="summary-card">
+      <strong id="unpaidCount">0</strong>
+      <span>미지급 인원</span>
+    </div>
+
+    <div class="summary-card">
+      <strong id="todayCount">0</strong>
+      <span>오늘 등록</span>
+    </div>
+
+    <div class="summary-card">
+      <strong>평촌</strong>
+      <span>소바공방</span>
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>근무내역 입력</h2>
+
+    <div class="form-grid">
+
+      <label>
+        근무일자
+        <input type="date" id="date" />
+      </label>
+
+      <label>
+        매장
+        <input type="text"
+               id="store"
+               value="소바공방 평촌점"
+               readonly />
+      </label>
+
+      <label class="full">
+        성함 또는 전화번호 검색
+        <input type="text"
+               id="searchKeyword"
+               placeholder="성함 또는 전화번호 입력"
+               oninput="searchWorker()" />
+      </label>
+
+    </div>
+
+    <div id="searchResult" class="result-box"></div>
+
+    <div class="form-grid">
+
+      <label>
+        성함
+        <input type="text" id="name" />
+      </label>
+
+      <label>
+        전화번호
+        <input type="text" id="phone" />
+      </label>
+
+      <label>
+        업무
+        <input type="text" id="job" />
+      </label>
+
+      <label>
+        수당
+        <input type="number" id="allowance" />
+      </label>
+
+      <label>
+        주민번호
+        <input type="text" id="rrn" />
+      </label>
+
+      <label>
+        수취은행
+        <input type="text" id="bank" />
+      </label>
+
+      <label class="full">
+        계좌번호
+        <input type="text" id="account" />
+      </label>
+
+      <label class="full">
+        비고
+        <textarea id="memo"></textarea>
+      </label>
+
+    </div>
+
+    <button id="saveBtn" onclick="saveDailyWorker()">
+      근무내역 저장
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbwYnfRshHZs5kFl_3gvyYRlOgkfIPKx997vIjNg1hecxreYcetFFK_uS_ael9tuefP4/exec";
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,"0");
+  const dd = String(today.getDate()).padStart(2,"0");
+
+  document.getElementById("date").value =
+    `${yyyy}-${mm}-${dd}`;
+
+  loadUnpaidCount();
+
+});
+
+function val(id){
+  return document.getElementById(id).value.trim();
+}
+
+async function searchWorker(){
+
+  const keyword = val("searchKeyword");
+
+  if(!keyword){
+    document.getElementById("searchResult").innerHTML = "";
+    return;
+  }
+
+  const url =
+    API_URL +
+    "?action=searchWorker&keyword=" +
+    encodeURIComponent(keyword);
+
+  const res = await fetch(url);
+  const data = await res.json();
+
+  const list = data.data || [];
+
+  const box = document.getElementById("searchResult");
+
+  if(list.length === 0){
+    box.innerHTML = "";
+    return;
+  }
+
+  box.innerHTML = list.map(item => `
+    <div class="worker-item"
+         onclick='selectWorker(${JSON.stringify(item)})'>
+
+      <strong>${item.name || ""}</strong><br>
+
+      ${item.phone || ""}<br>
+
+      최근업무 :
+      ${item.lastJob || "-"}<br>
+
+      최근수당 :
+      ${item.lastAllowance || "-"}
+
+    </div>
+  `).join("");
+
+}
+
+function selectWorker(item){
+
+  document.getElementById("name").value =
+    item.name || "";
+
+  document.getElementById("phone").value =
+    item.phone || "";
+
+  document.getElementById("job").value =
+    item.lastJob || "";
+
+  document.getElementById("allowance").value =
+    item.lastAllowance || "";
+
+  document.getElementById("rrn").value =
+    item.rrn || "";
+
+  document.getElementById("bank").value =
+    item.bank || "";
+
+  document.getElementById("account").value =
+    item.account || "";
+
+  document.getElementById("searchResult").innerHTML = "";
+
+}
+
+async function saveDailyWorker(){
+
+  const btn =
+    document.getElementById("saveBtn");
+
+  btn.disabled = true;
+  btn.textContent = "저장중...";
+
+  try{
+
+    const payload = {
+      action:"saveDailyWorker",
+      date:val("date"),
+      store:val("store"),
+      name:val("name"),
+      phone:val("phone"),
+      job:val("job"),
+      allowance:val("allowance"),
+      rrn:val("rrn"),
+      bank:val("bank"),
+      account:val("account"),
+      memo:val("memo"),
+      payStatus:"미지급"
+    };
+
+    const res = await fetch(API_URL,{
+      method:"POST",
+      body:JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    alert(data.message || "저장되었습니다.");
+
+    loadUnpaidCount();
+
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("job").value = "";
+    document.getElementById("allowance").value = "";
+    document.getElementById("rrn").value = "";
+    document.getElementById("bank").value = "";
+    document.getElementById("account").value = "";
+    document.getElementById("memo").value = "";
+    document.getElementById("searchKeyword").value = "";
+
+  }catch(e){
+
+    console.log(e);
+    alert("저장 실패");
+
+  }
+
+  btn.disabled = false;
+  btn.textContent = "근무내역 저장";
+
+}
+
+async function loadUnpaidCount(){
+
+  try{
+
+    const url =
+      API_URL +
+      "?action=getDailyUnpaidCount&t=" +
+      Date.now();
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const count =
+      Number(data.count || 0);
+
+    document.getElementById("unpaidCount").textContent =
+      count;
+
+  }catch(e){
+
+    console.log(e);
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
