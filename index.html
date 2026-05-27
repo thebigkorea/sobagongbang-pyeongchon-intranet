@@ -95,6 +95,7 @@
       font-size:23px;
       letter-spacing:-.04em;
     }
+
     .card p{
       margin:0 0 20px;
       color:#75685c;
@@ -113,6 +114,7 @@
       font-weight:900;
       font-size:15px;
     }
+
     .btn.sub{
       background:#f1e7d8;
       color:#2b1b10;
@@ -122,6 +124,7 @@
     .badge-link{
       position:relative;
     }
+
     .unpaid-badge{
       display:none;
       position:absolute;
@@ -213,7 +216,10 @@
         <h2>일용직 근무내역</h2>
         <p>일용직 근무내역을 입력하고 미지급 내역을 확인합니다.</p>
         <a class="btn" href="daily-worker.html" target="_blank">근무내역 입력</a>
-        <a class="btn sub badge-link" href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060" target="_blank">
+
+        <a class="btn sub badge-link"
+           href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060"
+           target="_blank">
           원장 조회
           <span id="dailyUnpaidBadge" class="unpaid-badge">0</span>
         </a>
@@ -249,35 +255,42 @@
   </footer>
 
   <script>
-  const DAILY_WORKER_API_URL = "평촌_일용직_APPS_SCRIPT_EXEC_URL";
+    const DAILY_WORKER_API_URL =
+      "평촌_일용직_APPS_SCRIPT_EXEC_URL";
 
-  async function loadDailyUnpaidBadge() {
-    const badge = document.getElementById("dailyUnpaidBadge");
+    async function loadDailyUnpaidBadge() {
+      const badge = document.getElementById("dailyUnpaidBadge");
 
-    if (!DAILY_WORKER_API_URL || DAILY_WORKER_API_URL.includes("EXEC_URL")) {
-      return;
-    }
+      if (!badge) return;
 
-    try {
-      const url = DAILY_WORKER_API_URL + "?action=getDailyUnpaidCount&t=" + Date.now();
-      const res = await fetch(url, { cache: "no-store" });
-      const data = await res.json();
+      if (!DAILY_WORKER_API_URL || DAILY_WORKER_API_URL.includes("EXEC_URL")) {
+        return;
+      }
 
-      const count = Number(data.count || 0);
+      try {
+        const url =
+          DAILY_WORKER_API_URL +
+          "?action=getDailyUnpaidCount&t=" +
+          Date.now();
 
-      if (count > 0) {
-        badge.textContent = count > 99 ? "99+" : String(count);
-        badge.style.display = "flex";
-      } else {
+        const res = await fetch(url, { cache: "no-store" });
+        const data = await res.json();
+
+        const count = Number(data.count || 0);
+
+        if (count > 0) {
+          badge.textContent = count > 99 ? "99+" : String(count);
+          badge.style.display = "flex";
+        } else {
+          badge.style.display = "none";
+        }
+      } catch (e) {
+        console.log("일용직 미지급 배지 조회 실패", e);
         badge.style.display = "none";
       }
-    } catch (e) {
-      console.log("일용직 미지급 배지 조회 실패", e);
-      badge.style.display = "none";
     }
-  }
 
-  window.addEventListener("load", loadDailyUnpaidBadge);
-</script>
+    window.addEventListener("load", loadDailyUnpaidBadge);
+  </script>
 </body>
 </html>
