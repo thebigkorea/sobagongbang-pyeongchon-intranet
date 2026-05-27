@@ -1,0 +1,21 @@
+{
+  "name": "소바공방 평촌점 업무포털",
+  "short_name": "소바공방",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f1ea",
+  "theme_color": "#2b1d12",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
