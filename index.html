@@ -7,26 +7,42 @@
 
   <style>
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif;
       background:#f6f1ea;
       color:#24170f;
     }
+
     a{text-decoration:none;color:inherit}
 
     .top{
-      background:linear-gradient(135deg,#2b1d12,#8a5a2b);
+      position:relative;
+      min-height:460px;
+      padding:62px 22px;
       color:#fff;
-      padding:42px 22px;
+      overflow:hidden;
       border-bottom-left-radius:34px;
       border-bottom-right-radius:34px;
       box-shadow:0 12px 35px rgba(0,0,0,.18);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(32,18,10,.78) 0%,
+          rgba(32,18,10,.60) 42%,
+          rgba(32,18,10,.20) 100%
+        ),
+        url("images/hero-tonkatsu.png") center center/cover no-repeat;
     }
+
     .top-inner{
       max-width:1100px;
       margin:0 auto;
+      position:relative;
+      z-index:2;
     }
+
     .eyebrow{
       font-size:13px;
       letter-spacing:.22em;
@@ -34,17 +50,22 @@
       font-weight:900;
       margin-bottom:14px;
     }
+
     h1{
       margin:0;
-      font-size:44px;
+      font-size:50px;
       line-height:1.12;
       letter-spacing:-.06em;
+      text-shadow:0 5px 18px rgba(0,0,0,.35);
     }
+
     .top p{
-      margin:16px 0 0;
-      font-size:16px;
-      line-height:1.7;
-      color:rgba(255,255,255,.82);
+      margin:18px 0 0;
+      max-width:620px;
+      font-size:17px;
+      line-height:1.8;
+      color:rgba(255,255,255,.9);
+      text-shadow:0 3px 12px rgba(0,0,0,.35);
     }
 
     .wrap{
@@ -57,7 +78,9 @@
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:14px;
-      margin-top:-8px;
+      margin-top:-34px;
+      position:relative;
+      z-index:5;
     }
 
     .card{
@@ -65,12 +88,13 @@
       border:1px solid #eadfce;
       border-radius:24px;
       padding:24px;
-      box-shadow:0 10px 28px rgba(52,32,16,.08);
+      box-shadow:0 10px 28px rgba(52,32,16,.12);
       transition:.15s ease;
     }
+
     .card:hover{
       transform:translateY(-2px);
-      box-shadow:0 16px 35px rgba(52,32,16,.13);
+      box-shadow:0 16px 35px rgba(52,32,16,.18);
     }
 
     .icon{
@@ -84,6 +108,7 @@
       background:#8a5a2b;
       margin-bottom:16px;
     }
+
     .blue{background:#0f6b8f}
     .green{background:#197857}
     .red{background:#a94438}
@@ -121,9 +146,7 @@
       margin-top:10px;
     }
 
-    .badge-link{
-      position:relative;
-    }
+    .badge-link{position:relative}
 
     .unpaid-badge{
       display:none;
@@ -165,11 +188,23 @@
     }
 
     @media(max-width:760px){
+      .top{
+        min-height:370px;
+        padding:40px 18px;
+        background:
+          linear-gradient(
+            rgba(32,18,10,.70),
+            rgba(32,18,10,.70)
+          ),
+          url("images/hero-tonkatsu.png") center/cover no-repeat;
+      }
+
       h1{font-size:34px}
-      .quick{grid-template-columns:1fr}
-      .top{padding:34px 18px}
+      .top p{font-size:15px}
+      .quick{grid-template-columns:1fr;margin-top:-24px}
     }
   </style>
+
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2b1d12">
   <link rel="apple-touch-icon" href="images/icon-192.png">
@@ -179,7 +214,7 @@
   <header class="top">
     <div class="top-inner">
       <div class="eyebrow">SOBA GONGBANG · PYEONGCHON</div>
-      <h1>소바공방 평촌점<br>업무포털</h1>
+      <h1>정성을 다하는<br>소바공방 평촌점 업무포털</h1>
       <p>
         일일보고, 영업실적보고서, 출퇴근관리, 일용직 근무내역,
         직원정보 입력, 연월차 신청을 한 곳에서 실행하는 평촌점 전용 인트라넷입니다.
@@ -219,10 +254,7 @@
         <h2>일용직 근무내역</h2>
         <p>일용직 근무내역을 입력하고 미지급 내역을 확인합니다.</p>
         <a class="btn" href="daily-worker.html" target="_blank">근무내역 입력</a>
-
-        <a class="btn sub badge-link"
-           href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060"
-           target="_blank">
+        <a class="btn sub badge-link" href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060" target="_blank">
           원장 조회
           <span id="dailyUnpaidBadge" class="unpaid-badge">0</span>
         </a>
@@ -247,8 +279,7 @@
     </section>
 
     <div class="note">
-      ※ 링크가 확정되면 <strong>링크_입력</strong> 부분만 실제 Apps Script, Google Sheets,
-      GitHub Pages 주소로 교체하면 됩니다.
+      ※ 이 페이지는 소바공방 평촌점 내부 업무용 인트라넷입니다.
     </div>
   </main>
 
@@ -258,24 +289,16 @@
   </footer>
 
   <script>
-    const DAILY_WORKER_API_URL =
-      "평촌_일용직_APPS_SCRIPT_EXEC_URL";
+    const DAILY_WORKER_API_URL = "평촌_일용직_APPS_SCRIPT_EXEC_URL";
 
     async function loadDailyUnpaidBadge() {
       const badge = document.getElementById("dailyUnpaidBadge");
-
       if (!badge) return;
 
-      if (!DAILY_WORKER_API_URL || DAILY_WORKER_API_URL.includes("EXEC_URL")) {
-        return;
-      }
+      if (!DAILY_WORKER_API_URL || DAILY_WORKER_API_URL.includes("EXEC_URL")) return;
 
       try {
-        const url =
-          DAILY_WORKER_API_URL +
-          "?action=getDailyUnpaidCount&t=" +
-          Date.now();
-
+        const url = DAILY_WORKER_API_URL + "?action=getDailyUnpaidCount&t=" + Date.now();
         const res = await fetch(url, { cache: "no-store" });
         const data = await res.json();
 
@@ -295,18 +318,19 @@
 
     window.addEventListener("load", loadDailyUnpaidBadge);
   </script>
+
   <script>
-     if ("serviceWorker" in navigator) {
-       window.addEventListener("load", function () {
-         navigator.serviceWorker.register("./service-worker.js")
-           .then(function () {
-             console.log("Service Worker 등록 완료");
-           })
-           .catch(function (error) {
-             console.log("Service Worker 등록 실패", error);
-           });
-       });
-     }
-   </script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(function () {
+            console.log("Service Worker 등록 완료");
+          })
+          .catch(function (error) {
+            console.log("Service Worker 등록 실패", error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
