@@ -17,84 +17,133 @@
 
     a{text-decoration:none;color:inherit}
 
-    .top{
-      position:relative;
-      min-height:460px;
-      padding:62px 22px;
+    .page{
+      max-width:1400px;
+      margin:0 auto;
+      padding:26px 28px 60px;
+    }
+
+    .top-nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      font-size:22px;
+      letter-spacing:-.04em;
+      color:#24170f;
+    }
+
+    .seal{
+      width:24px;
+      height:24px;
+      border-radius:6px;
+      background:#9b2c1f;
       color:#fff;
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:26px;
+      font-size:15px;
+      font-weight:800;
+    }
+
+    .nav-btn{
+      padding:11px 20px;
+      border-radius:999px;
+      background:#8a5a2b;
+      color:#fff;
+    }
+
+    .hero{
+      position:relative;
+      width:100%;
+      height:620px;
+      border-radius:34px;
       overflow:hidden;
-      border-bottom-left-radius:34px;
-      border-bottom-right-radius:34px;
-      box-shadow:0 12px 35px rgba(0,0,0,.18);
+      box-shadow:0 18px 45px rgba(52,32,16,.18);
       background:
         linear-gradient(
           90deg,
-          rgba(32,18,10,.78) 0%,
-          rgba(32,18,10,.60) 42%,
-          rgba(32,18,10,.20) 100%
+          rgba(35,22,13,.58) 0%,
+          rgba(35,22,13,.36) 42%,
+          rgba(35,22,13,.04) 100%
         ),
         url("images/hero-tonkatsu.png") center center/cover no-repeat;
+      display:flex;
+      align-items:center;
     }
 
-    .top-inner{
-      max-width:1100px;
-      margin:0 auto;
+    .hero-content{
+      max-width:620px;
+      padding-left:110px;
+      color:#fff;
       position:relative;
       z-index:2;
     }
 
     .eyebrow{
-      font-size:13px;
-      letter-spacing:.22em;
+      font-size:14px;
+      letter-spacing:.34em;
       color:#f3c27d;
       font-weight:900;
-      margin-bottom:14px;
+      margin-bottom:18px;
     }
 
     h1{
       margin:0;
-      font-size:50px;
+      font-size:56px;
       line-height:1.12;
-      letter-spacing:-.06em;
-      text-shadow:0 5px 18px rgba(0,0,0,.35);
+      letter-spacing:-.07em;
+      font-weight:950;
+      text-shadow:0 5px 18px rgba(0,0,0,.32);
     }
 
-    .top p{
-      margin:18px 0 0;
-      max-width:620px;
-      font-size:17px;
-      line-height:1.8;
-      color:rgba(255,255,255,.9);
-      text-shadow:0 3px 12px rgba(0,0,0,.35);
+    .hero-content p{
+      margin:24px 0 0;
+      font-size:18px;
+      line-height:1.85;
+      color:rgba(255,255,255,.94);
+      text-shadow:0 4px 16px rgba(0,0,0,.35);
+      font-weight:600;
     }
 
     .wrap{
-      max-width:1100px;
+      max-width:1000px;
       margin:0 auto;
-      padding:26px 18px 50px;
+      padding:34px 18px 0;
     }
 
     .quick{
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:14px;
-      margin-top:-34px;
-      position:relative;
-      z-index:5;
+      gap:18px;
     }
 
     .card{
       background:#fffaf2;
       border:1px solid #eadfce;
       border-radius:24px;
-      padding:24px;
-      box-shadow:0 10px 28px rgba(52,32,16,.12);
+      padding:26px;
+      box-shadow:0 10px 28px rgba(52,32,16,.10);
       transition:.15s ease;
     }
 
     .card:hover{
       transform:translateY(-2px);
-      box-shadow:0 16px 35px rgba(52,32,16,.18);
+      box-shadow:0 16px 35px rgba(52,32,16,.16);
     }
 
     .icon{
@@ -106,7 +155,7 @@
       color:#fff;
       font-size:22px;
       background:#8a5a2b;
-      margin-bottom:16px;
+      margin-bottom:18px;
     }
 
     .blue{background:#0f6b8f}
@@ -116,13 +165,13 @@
     .dark{background:#3b2414}
 
     h2{
-      margin:0 0 8px;
-      font-size:23px;
-      letter-spacing:-.04em;
+      margin:0 0 10px;
+      font-size:24px;
+      letter-spacing:-.05em;
     }
 
     .card p{
-      margin:0 0 20px;
+      margin:0 0 22px;
       color:#75685c;
       font-size:14px;
       line-height:1.65;
@@ -179,29 +228,48 @@
     }
 
     footer{
-      max-width:1100px;
+      max-width:1000px;
       margin:0 auto;
-      padding:0 18px 40px;
+      padding:28px 18px 40px;
       color:#75685c;
       font-size:13px;
       line-height:1.7;
     }
 
-    @media(max-width:760px){
-      .top{
-        min-height:370px;
-        padding:40px 18px;
+    @media(max-width:900px){
+      .page{padding:16px 12px 40px}
+      .top-nav{display:none}
+
+      .hero{
+        height:520px;
+        border-radius:26px;
         background:
           linear-gradient(
-            rgba(32,18,10,.70),
-            rgba(32,18,10,.70)
+            rgba(35,22,13,.58),
+            rgba(35,22,13,.58)
           ),
-          url("images/hero-tonkatsu.png") center/cover no-repeat;
+          url("images/hero-tonkatsu.png") center center/cover no-repeat;
       }
 
-      h1{font-size:34px}
-      .top p{font-size:15px}
-      .quick{grid-template-columns:1fr;margin-top:-24px}
+      .hero-content{
+        padding:32px;
+      }
+
+      h1{
+        font-size:38px;
+      }
+
+      .hero-content p{
+        font-size:15px;
+      }
+
+      .quick{
+        grid-template-columns:1fr;
+      }
+
+      .wrap{
+        padding:22px 0 0;
+      }
     }
   </style>
 
@@ -211,82 +279,102 @@
 </head>
 
 <body>
-  <header class="top">
-    <div class="top-inner">
-      <div class="eyebrow">SOBA GONGBANG · PYEONGCHON</div>
-      <h1>정성을 다하는<br>소바공방 평촌점 업무포털</h1>
-      <p>
-        일일보고, 영업실적보고서, 출퇴근관리, 일용직 근무내역,
-        직원정보 입력, 연월차 신청을 한 곳에서 실행하는 평촌점 전용 인트라넷입니다.
-      </p>
-    </div>
-  </header>
 
-  <main class="wrap">
-    <section class="quick">
+  <div class="page">
 
-      <article class="card">
-        <div class="icon gold">📋</div>
-        <h2>일일보고 · 매장점검</h2>
-        <p>일일보고, 직원관리, 고객관리, 설비관리, 위생점검, 컴플레인을 기록합니다.</p>
-        <a class="btn" href="store-manager.html" target="_blank">일일보고 입력</a>
-        <a class="btn sub" href="일일보고_원장_링크_입력" target="_blank">원장 조회</a>
-      </article>
+    <nav class="top-nav">
+      <div class="brand">
+        소바공방
+        <span class="seal">蕎</span>
+      </div>
 
-      <article class="card">
-        <div class="icon blue">📊</div>
-        <h2>영업실적보고서</h2>
-        <p>평촌점 영업실적보고서를 입력하고 관리합니다.</p>
-        <a class="btn" href="https://script.google.com/macros/s/AKfycbx-QNqhusp57z6cxhKLcTymf0z5gx7mHkt9kOrcLEGIfxN9b-kgNlk8qtZ_VLWv57dA/exec" target="_blank">영업실적 입력</a>
-        <a class="btn sub" href="https://docs.google.com/spreadsheets/d/1BN0FdwGuW5KCJ9_6_gkEPQHS46MX26S5zEeB9SbsnNI/edit?gid=949326317#gid=949326317" target="_blank">보고서 조회</a>
-      </article>
+      <div class="nav-links">
+        <a href="index.html">홈</a>
+        <a href="store-manager.html">일일보고</a>
+        <a href="employee-info.html">직원정보</a>
+        <a class="nav-btn" href="#work">업무포털 바로가기</a>
+      </div>
+    </nav>
 
-      <article class="card">
-        <div class="icon green">⏱️</div>
-        <h2>출퇴근관리</h2>
-        <p>직원 출근·퇴근 등록 및 관리자 근태 조회를 실행합니다.</p>
-        <a class="btn" href="https://thebigkorea.github.io/sobagongbang-pyeongchon/?utm_source=chatgpt.com" target="_blank">출퇴근 등록</a>
-        <a class="btn sub" href="https://docs.google.com/spreadsheets/d/10PWA1OJtQSXE2P2xBAgrpz-rPw6XkdHAoe9_g-41wEI/edit?gid=1658776026#gid=1658776026" target="_blank">관리자 조회</a>
-      </article>
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">SOBA GONGBANG · PYEONGCHON</div>
+        <h1>정성을 다하는<br>소바공방 평촌점 업무포털</h1>
+        <p>
+          일일보고, 영업실적보고서, 출퇴근관리, 일용직 근무내역,<br>
+          직원정보 입력, 연월차 신청을 한 곳에서 실행하는<br>
+          평촌점 전용 인트라넷입니다.
+        </p>
+      </div>
+    </header>
 
-      <article class="card">
-        <div class="icon red">👷</div>
-        <h2>일용직 근무내역</h2>
-        <p>일용직 근무내역을 입력하고 미지급 내역을 확인합니다.</p>
-        <a class="btn" href="daily-worker.html" target="_blank">근무내역 입력</a>
-        <a class="btn sub badge-link" href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060" target="_blank">
-          원장 조회
-          <span id="dailyUnpaidBadge" class="unpaid-badge">0</span>
-        </a>
-      </article>
+    <main id="work" class="wrap">
+      <section class="quick">
 
-      <article class="card">
-        <div class="icon dark">👤</div>
-        <h2>직원정보 입력</h2>
-        <p>평촌점 직원정보를 입력하고 본사 통합 HR에도 함께 전송합니다.</p>
-        <a class="btn" href="employee-info.html" target="_blank">직원정보 입력</a>
-        <a class="btn sub" href="https://docs.google.com/spreadsheets/d/1ae4e3GWePUpEfRiKU_CVCCuiJqCzeqkeAW6OjhSKC-w/edit?gid=1168058129#gid=1168058129" target="_blank">평촌 직원정보 조회</a>
-      </article>
+        <article class="card">
+          <div class="icon gold">📋</div>
+          <h2>일일보고 · 매장점검</h2>
+          <p>일일보고, 직원관리, 고객관리, 설비관리, 위생점검, 컴플레인을 기록합니다.</p>
+          <a class="btn" href="store-manager.html" target="_blank">일일보고 입력</a>
+          <a class="btn sub" href="일일보고_원장_링크_입력" target="_blank">원장 조회</a>
+        </article>
 
-      <article class="card">
-        <div class="icon green">🌿</div>
-        <h2>연월차 신청</h2>
-        <p>직원 연월차 신청 및 관리자 승인 화면으로 이동합니다.</p>
-        <a class="btn" href="https://thebigkorea.github.io/sobagongbang-pyeongchon-leave/index.html?v=6" target="_blank">연월차 신청</a>
-        <a class="btn sub" href="https://thebigkorea.github.io/sobagongbang-pyeongchon-leave/admin.html?v=6" target="_blank">관리자 승인</a>
-      </article>
+        <article class="card">
+          <div class="icon blue">📊</div>
+          <h2>영업실적보고서</h2>
+          <p>평촌점 영업실적보고서를 입력하고 관리합니다.</p>
+          <a class="btn" href="https://script.google.com/macros/s/AKfycbx-QNqhusp57z6cxhKLcTymf0z5gx7mHkt9kOrcLEGIfxN9b-kgNlk8qtZ_VLWv57dA/exec" target="_blank">영업실적 입력</a>
+          <a class="btn sub" href="https://docs.google.com/spreadsheets/d/1BN0FdwGuW5KCJ9_6_gkEPQHS46MX26S5zEeB9SbsnNI/edit?gid=949326317#gid=949326317" target="_blank">보고서 조회</a>
+        </article>
 
-    </section>
+        <article class="card">
+          <div class="icon green">⏱️</div>
+          <h2>출퇴근관리</h2>
+          <p>직원 출근·퇴근 등록 및 관리자 근태 조회를 실행합니다.</p>
+          <a class="btn" href="https://thebigkorea.github.io/sobagongbang-pyeongchon/?utm_source=chatgpt.com" target="_blank">출퇴근 등록</a>
+          <a class="btn sub" href="https://docs.google.com/spreadsheets/d/10PWA1OJtQSXE2P2xBAgrpz-rPw6XkdHAoe9_g-41wEI/edit?gid=1658776026#gid=1658776026" target="_blank">관리자 조회</a>
+        </article>
 
-    <div class="note">
-      ※ 이 페이지는 소바공방 평촌점 내부 업무용 인트라넷입니다.
-    </div>
-  </main>
+        <article class="card">
+          <div class="icon red">👷</div>
+          <h2>일용직 근무내역</h2>
+          <p>일용직 근무내역을 입력하고 미지급 내역을 확인합니다.</p>
+          <a class="btn" href="daily-worker.html" target="_blank">근무내역 입력</a>
+          <a class="btn sub badge-link" href="https://docs.google.com/spreadsheets/d/1CTvrc6NFomOp4bL0rY464MtEICczLXZ6rAbdTpfgMRg/edit?gid=1301705060#gid=1301705060" target="_blank">
+            원장 조회
+            <span id="dailyUnpaidBadge" class="unpaid-badge">0</span>
+          </a>
+        </article>
 
-  <footer>
-    <strong>소바공방 평촌점 업무포털</strong><br>
-    내부 직원 업무용 인트라넷입니다. 외부 고객용 홈페이지와 분리하여 운영하는 것을 권장합니다.
-  </footer>
+        <article class="card">
+          <div class="icon dark">👤</div>
+          <h2>직원정보 입력</h2>
+          <p>평촌점 직원정보를 입력하고 본사 통합 HR에도 함께 전송합니다.</p>
+          <a class="btn" href="employee-info.html" target="_blank">직원정보 입력</a>
+          <a class="btn sub" href="https://docs.google.com/spreadsheets/d/1ae4e3GWePUpEfRiKU_CVCCuiJqCzeqkeAW6OjhSKC-w/edit?gid=1168058129#gid=1168058129" target="_blank">평촌 직원정보 조회</a>
+        </article>
+
+        <article class="card">
+          <div class="icon green">🌿</div>
+          <h2>연월차 신청</h2>
+          <p>직원 연월차 신청 및 관리자 승인 화면으로 이동합니다.</p>
+          <a class="btn" href="https://thebigkorea.github.io/sobagongbang-pyeongchon-leave/index.html?v=6" target="_blank">연월차 신청</a>
+          <a class="btn sub" href="https://thebigkorea.github.io/sobagongbang-pyeongchon-leave/admin.html?v=6" target="_blank">관리자 승인</a>
+        </article>
+
+      </section>
+
+      <div class="note">
+        ※ 이 페이지는 소바공방 평촌점 내부 업무용 인트라넷입니다.
+      </div>
+    </main>
+
+    <footer>
+      <strong>소바공방 평촌점 업무포털</strong><br>
+      내부 직원 업무용 인트라넷입니다. 외부 고객용 홈페이지와 분리하여 운영하는 것을 권장합니다.
+    </footer>
+
+  </div>
 
   <script>
     const DAILY_WORKER_API_URL = "평촌_일용직_APPS_SCRIPT_EXEC_URL";
@@ -332,5 +420,6 @@
       });
     }
   </script>
+
 </body>
 </html>
