@@ -2,188 +2,191 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>소바공방 평촌점 일용직 근무내역</title>
 
 <style>
+* { box-sizing: border-box; }
 
-*{
-  box-sizing:border-box;
+body {
+  margin: 0;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+  background: #f3f5f8;
+  color: #222;
 }
 
-body{
-  margin:0;
-  background:#f3f4f6;
-  font-family:'Malgun Gothic',sans-serif;
-  color:#222;
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.header{
-  background:linear-gradient(135deg,#2b1d12,#7c2d12);
-  color:#fff;
-  padding:26px 18px;
-  border-bottom-left-radius:28px;
-  border-bottom-right-radius:28px;
-  box-shadow:0 4px 18px rgba(0,0,0,.15);
+.header {
+  background: linear-gradient(135deg,#2b1d12,#7c2d12);
+  color: white;
+  padding: 24px;
+  border-radius: 0 0 24px 24px;
+  margin-bottom: 18px;
+  box-shadow: 0 6px 22px rgba(0,0,0,.16);
 }
 
-.header h1{
-  margin:0;
-  font-size:26px;
+.header h1 {
+  margin: 0;
+  font-size: 24px;
 }
 
-.header p{
-  margin-top:8px;
-  font-size:13px;
-  opacity:.9;
+.header p {
+  margin: 8px 0 0;
+  color: rgba(255,255,255,.85);
+  font-size: 14px;
 }
 
-.container{
-  max-width:760px;
-  margin:0 auto;
-  padding:18px;
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  margin-bottom: 16px;
 }
 
-.card{
-  background:#fff;
-  border-radius:22px;
-  padding:20px;
-  box-shadow:0 4px 14px rgba(0,0,0,.08);
-  margin-bottom:18px;
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-h2{
-  margin:0 0 16px;
-  font-size:22px;
+.summary-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px 10px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
+.summary-card strong {
+  display: block;
+  font-size: 28px;
+  color: #7c2d12;
 }
 
-label{
-  display:block;
-  font-size:14px;
-  font-weight:bold;
+.summary-card span {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #666;
 }
 
-input,
-select,
-textarea{
-  width:100%;
-  margin-top:6px;
-  border:1px solid #d1d5db;
-  border-radius:14px;
-  padding:13px;
-  font-size:15px;
-  background:#fff;
+label {
+  display: block;
+  font-weight: 700;
+  margin: 14px 0 6px;
+  font-size: 15px;
 }
 
-textarea{
-  min-height:90px;
-  resize:vertical;
+input, select, textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 16px;
+  background: #fff;
 }
 
-.full{
-  grid-column:1 / -1;
+textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
-button{
-  width:100%;
-  border:none;
-  border-radius:16px;
-  background:#7c2d12;
-  color:#fff;
-  font-size:16px;
-  font-weight:bold;
-  padding:15px;
-  margin-top:16px;
-  cursor:pointer;
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-button:disabled{
-  opacity:.6;
+.btn {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+  margin-top: 14px;
 }
 
-.result-box{
-  margin-top:14px;
-  display:grid;
-  gap:10px;
+.btn-primary {
+  background: #7c2d12;
+  color: white;
 }
 
-.worker-item{
-  border:1px solid #e5e7eb;
-  border-radius:14px;
-  padding:12px;
-  cursor:pointer;
-  background:#fafafa;
+.btn-dark {
+  background: #111827;
+  color: white;
 }
 
-.worker-item:hover{
-  background:#f3f4f6;
+.btn-light {
+  background: #e5e7eb;
+  color: #111827;
 }
 
-.badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:22px;
-  height:22px;
-  padding:0 8px;
-  border-radius:999px;
-  background:#dc2626;
-  color:#fff;
-  font-size:12px;
-  font-weight:bold;
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.summary{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-bottom:18px;
+.result-item {
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 10px;
+  background: #f9fafb;
+  cursor: pointer;
 }
 
-.summary-card{
-  background:#fff;
-  border-radius:18px;
-  padding:18px 10px;
-  text-align:center;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
+.result-item strong {
+  font-size: 17px;
 }
 
-.summary-card strong{
-  display:block;
-  font-size:28px;
-  color:#7c2d12;
+.result-item p {
+  margin: 6px 0 0;
+  color: #4b5563;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.summary-card span{
-  display:block;
-  margin-top:6px;
-  font-size:13px;
-  color:#666;
+.notice {
+  padding: 12px;
+  border-radius: 12px;
+  margin-top: 12px;
+  font-size: 14px;
+  display: none;
 }
 
-@media(max-width:760px){
-
-  .container{
-    padding:14px;
-  }
-
-  .form-grid{
-    grid-template-columns:1fr;
-  }
-
-  .summary{
-    grid-template-columns:1fr;
-  }
-
+.notice.ok {
+  display: block;
+  background: #dcfce7;
+  color: #166534;
 }
 
+.notice.err {
+  display: block;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.small {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+@media (max-width: 520px) {
+  .wrap { padding: 14px; }
+  .row { grid-template-columns: 1fr; }
+  .summary { grid-template-columns: 1fr; }
+  .header h1 { font-size: 21px; }
+}
 </style>
 </head>
 
@@ -191,13 +194,12 @@ button:disabled{
 
 <div class="header">
   <h1>소바공방 평촌점 일용직 근무내역</h1>
-  <p>일용직 근무내역 등록 및 미지급 관리</p>
+  <p>성함 또는 전화번호로 기존 정보를 검색한 뒤 근무내역을 저장합니다.</p>
 </div>
 
-<div class="container">
+<div class="wrap">
 
   <div class="summary">
-
     <div class="summary-card">
       <strong id="unpaidCount">0</strong>
       <span>미지급 인원</span>
@@ -212,276 +214,330 @@ button:disabled{
       <strong>평촌</strong>
       <span>소바공방</span>
     </div>
-
   </div>
 
   <div class="card">
+    <label>성함 또는 전화번호 검색</label>
+    <input id="keyword" type="text" placeholder="예: 손영임 또는 01012345678" />
 
-    <h2>근무내역 입력</h2>
+    <button class="btn btn-dark" type="button" onclick="searchWorker()">검색하기</button>
 
-    <div class="form-grid">
+    <div id="searchNotice" class="notice"></div>
+    <div id="resultBox"></div>
+  </div>
 
-      <label>
-        근무일자
-        <input type="date" id="date" />
-      </label>
+  <div class="card">
+    <div class="row">
+      <div>
+        <label>날짜</label>
+        <input id="date" type="date" />
+      </div>
 
-      <label>
-        매장
-        <input type="text"
-               id="store"
-               value="소바공방 평촌점"
-               readonly />
-      </label>
-
-      <label class="full">
-  성함 또는 전화번호 검색
-  <input type="text"
-         id="searchKeyword"
-         placeholder="성함 또는 전화번호 입력" />
-</label>
-
-<div class="full">
-  <button type="button" onclick="searchWorker()">
-    검색하기
-  </button>
-</div>
-
+      <div>
+        <label>매장</label>
+        <input id="store" type="text" value="소바공방 평촌점" readonly />
+      </div>
     </div>
 
-    <div id="searchResult" class="result-box"></div>
+    <label>성함</label>
+    <input id="name" type="text" placeholder="성함" />
 
-    <div class="form-grid">
+    <div class="row">
+      <div>
+        <label>수당</label>
+        <input id="allowance" type="number" placeholder="예: 120000" />
+      </div>
 
-      <label>
-        성함
-        <input type="text" id="name" />
-      </label>
-
-      <label>
-        전화번호
-        <input type="text" id="phone" />
-      </label>
-
-      <label>
-        업무
-        <input type="text" id="job" />
-      </label>
-
-      <label>
-        수당
-        <input type="number" id="allowance" />
-      </label>
-
-      <label>
-        주민번호
-        <input type="text" id="rrn" />
-      </label>
-
-      <label>
-        수취은행
-        <input type="text" id="bank" />
-      </label>
-
-      <label class="full">
-        계좌번호
-        <input type="text" id="account" />
-      </label>
-
-      <label class="full">
-        비고
-        <textarea id="memo"></textarea>
-      </label>
-
+      <div>
+        <label>업무</label>
+        <select id="job">
+          <option value="">선택</option>
+          <option value="홀">홀</option>
+          <option value="홀서빙">홀서빙</option>
+          <option value="설거지">설거지</option>
+          <option value="주방">주방</option>
+          <option value="전처리">전처리</option>
+          <option value="퇴식">퇴식</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
     </div>
 
-    <button id="saveBtn" onclick="saveDailyWorker()">
-      근무내역 저장
-    </button>
+    <label>주민번호</label>
+    <input id="rrn" type="text" inputmode="numeric" maxlength="14" placeholder="예: 610807-2057344" />
 
+    <div class="row">
+      <div>
+        <label>수취은행</label>
+        <input id="bank" type="text" placeholder="예: 하나은행" />
+      </div>
+
+      <div>
+        <label>전화번호</label>
+        <input id="phone" type="tel" inputmode="numeric" maxlength="13" placeholder="예: 010-9164-2554" />
+      </div>
+    </div>
+
+    <label>계좌번호</label>
+    <input id="account" type="text" placeholder="계좌번호" />
+
+    <label>비고</label>
+    <textarea id="memo" placeholder="특이사항 입력"></textarea>
+
+    <label>지급여부</label>
+    <select id="payStatus">
+      <option value="미지급">미지급</option>
+      <option value="지급완료">지급완료</option>
+    </select>
+
+    <button id="saveBtn" class="btn btn-primary" type="button" onclick="saveDailyWorker()">저장하기</button>
+    <button class="btn btn-light" type="button" onclick="clearForm()">새 입력</button>
+
+    <div id="saveNotice" class="notice"></div>
+    <div class="small">
+      저장하면 평촌 일용직 근무내역과 미지급 현황이 자동 갱신됩니다.
+    </div>
   </div>
 
 </div>
 
 <script>
-
 const API_URL =
   "https://script.google.com/macros/s/AKfycbwYnfRshHZs5kFl_3gvyYRlOgkfIPKx997vIjNg1hecxreYcetFFK_uS_ael9tuefP4/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth()+1).padStart(2,"0");
-  const dd = String(today.getDate()).padStart(2,"0");
+  document.getElementById("date").value = today.toISOString().slice(0, 10);
 
-  document.getElementById("date").value =
-    `${yyyy}-${mm}-${dd}`;
+  document.getElementById("phone").addEventListener("input", function(){
+    this.value = formatPhone(this.value);
+  });
+
+  document.getElementById("rrn").addEventListener("input", function(){
+    this.value = formatRRN(this.value);
+  });
 
   loadUnpaidCount();
-
+  loadTodayCount();
 });
 
 function val(id){
   return document.getElementById(id).value.trim();
 }
 
-async function searchWorker(){
+function onlyNumber(value){
+  return String(value || "").replace(/[^0-9]/g, "");
+}
 
-  const keyword = val("searchKeyword");
+function formatPhone(value){
+  const num = onlyNumber(value).slice(0,11);
 
-  if(!keyword){
-    document.getElementById("searchResult").innerHTML = "";
+  if(num.length <= 3) return num;
+  if(num.length <= 7) return num.replace(/(\d{3})(\d+)/, "$1-$2");
+
+  return num.replace(/(\d{3})(\d{4})(\d{0,4})/, "$1-$2-$3");
+}
+
+function formatRRN(value){
+  const num = onlyNumber(value).slice(0,13);
+
+  if(num.length <= 6) return num;
+
+  return num.replace(/(\d{6})(\d{0,7})/, "$1-$2");
+}
+
+function showNotice(id, type, msg) {
+  const el = document.getElementById(id);
+  el.className = "notice " + type;
+  el.textContent = msg;
+}
+
+function clearNotice(id) {
+  const el = document.getElementById(id);
+  el.className = "notice";
+  el.textContent = "";
+}
+
+async function searchWorker() {
+  const keyword = val("keyword");
+  const resultBox = document.getElementById("resultBox");
+  resultBox.innerHTML = "";
+  clearNotice("searchNotice");
+
+  if (!keyword) {
+    showNotice("searchNotice", "err", "성함 또는 전화번호를 입력해주세요.");
     return;
   }
 
-  const url =
-    API_URL +
-    "?action=searchWorker&keyword=" +
-    encodeURIComponent(keyword);
+  showNotice("searchNotice", "ok", "검색 중입니다...");
 
-  const res = await fetch(url);
-  const data = await res.json();
+  try {
+    const res = await fetch(API_URL + "?action=searchWorker&keyword=" + encodeURIComponent(keyword));
+    const json = await res.json();
 
-  const list = data.data || [];
+    resultBox.innerHTML = "";
 
-  const box = document.getElementById("searchResult");
+    if (!json.success || !json.data || json.data.length === 0) {
+      showNotice("searchNotice", "err", "기존 정보가 없습니다. 아래에 직접 입력해주세요.");
+      document.getElementById("name").value = keyword;
+      return;
+    }
 
-  if(list.length === 0){
-    box.innerHTML = "";
-    return;
-  }
+    showNotice("searchNotice", "ok", json.data.length + "건의 기존 정보를 찾았습니다.");
 
-  box.innerHTML = list.map(item => `
-    <div class="worker-item"
-         onclick='selectWorker(${JSON.stringify(item)})'>
+    json.data.forEach(worker => {
+      const div = document.createElement("div");
+      div.className = "result-item";
+      div.innerHTML = `
+        <strong>${worker.name || ""} / ${formatPhone(worker.phone || "")}</strong>
+        <p>
+          은행: ${worker.bank || "-"}<br>
+          계좌: ${worker.account || "-"}<br>
+          최근업무: ${worker.lastJob || "-"} / 최근수당: ${worker.lastAllowance || "-"}
+        </p>
+      `;
 
-      <strong>${item.name || ""}</strong><br>
+      div.onclick = () => {
+        const ok = confirm(
+          `${worker.name} 님의 기존 정보가 있습니다.\n\n` +
+          `전화번호: ${formatPhone(worker.phone || "")}\n` +
+          `은행: ${worker.bank || "-"}\n` +
+          `계좌: ${worker.account || "-"}\n\n` +
+          `이 정보로 입력하시겠습니까?`
+        );
 
-      ${item.phone || ""}<br>
+        if (ok) fillWorker(worker);
+      };
 
-      최근업무 :
-      ${item.lastJob || "-"}<br>
-
-      최근수당 :
-      ${item.lastAllowance || "-"}
-
-    </div>
-  `).join("");
-
-}
-
-function selectWorker(item){
-
-  document.getElementById("name").value =
-    item.name || "";
-
-  document.getElementById("phone").value =
-    item.phone || "";
-
-  document.getElementById("job").value =
-    item.lastJob || "";
-
-  document.getElementById("allowance").value =
-    item.lastAllowance || "";
-
-  document.getElementById("rrn").value =
-    item.rrn || "";
-
-  document.getElementById("bank").value =
-    item.bank || "";
-
-  document.getElementById("account").value =
-    item.account || "";
-
-  document.getElementById("searchResult").innerHTML = "";
-
-}
-
-async function saveDailyWorker(){
-
-  const btn =
-    document.getElementById("saveBtn");
-
-  btn.disabled = true;
-  btn.textContent = "저장중...";
-
-  try{
-
-    const payload = {
-      action:"saveDailyWorker",
-      date:val("date"),
-      store:val("store"),
-      name:val("name"),
-      phone:val("phone"),
-      job:val("job"),
-      allowance:val("allowance"),
-      rrn:val("rrn"),
-      bank:val("bank"),
-      account:val("account"),
-      memo:val("memo"),
-      payStatus:"미지급"
-    };
-
-    const res = await fetch(API_URL,{
-      method:"POST",
-      body:JSON.stringify(payload)
+      resultBox.appendChild(div);
     });
 
-    const data = await res.json();
+  } catch (err) {
+    showNotice("searchNotice", "err", "검색 중 오류가 발생했습니다. 배포 URL 또는 권한을 확인해주세요.");
+  }
+}
 
-    alert(data.message || "저장되었습니다.");
+function fillWorker(worker) {
+  document.getElementById("name").value = worker.name || "";
+  document.getElementById("phone").value = formatPhone(worker.phone || "");
+  document.getElementById("rrn").value = formatRRN(worker.rrn || "");
+  document.getElementById("bank").value = worker.bank || "";
+  document.getElementById("account").value = worker.account || "";
 
-    loadUnpaidCount();
+  if (worker.lastJob) document.getElementById("job").value = worker.lastJob;
+  if (worker.lastAllowance) document.getElementById("allowance").value = worker.lastAllowance;
 
-    document.getElementById("name").value = "";
-    document.getElementById("phone").value = "";
-    document.getElementById("job").value = "";
-    document.getElementById("allowance").value = "";
-    document.getElementById("rrn").value = "";
-    document.getElementById("bank").value = "";
-    document.getElementById("account").value = "";
-    document.getElementById("memo").value = "";
-    document.getElementById("searchKeyword").value = "";
+  document.getElementById("resultBox").innerHTML = "";
+  showNotice("searchNotice", "ok", "기존 정보를 불러왔습니다. 날짜와 업무 내용을 확인 후 저장하세요.");
+}
 
-  }catch(e){
+async function saveDailyWorker() {
+  clearNotice("saveNotice");
 
-    console.log(e);
-    alert("저장 실패");
+  const btn = document.getElementById("saveBtn");
+  btn.disabled = true;
+  btn.textContent = "저장 중...";
 
+  const data = {
+    action: "saveDailyWorker",
+    date: val("date"),
+    store: val("store"),
+    name: val("name"),
+    allowance: val("allowance"),
+    job: val("job"),
+    rrn: formatRRN(val("rrn")),
+    bank: val("bank"),
+    account: val("account"),
+    phone: formatPhone(val("phone")),
+    memo: val("memo"),
+    payStatus: val("payStatus")
+  };
+
+  if (!data.name) {
+    showNotice("saveNotice", "err", "성함을 입력해주세요.");
+    resetButton();
+    return;
   }
 
-  btn.disabled = false;
-  btn.textContent = "근무내역 저장";
+  if (!data.phone) {
+    showNotice("saveNotice", "err", "전화번호를 입력해주세요.");
+    resetButton();
+    return;
+  }
 
+  if (!data.rrn) {
+    showNotice("saveNotice", "err", "주민번호를 입력해주세요.");
+    resetButton();
+    return;
+  }
+
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+
+    const json = await res.json();
+
+    if (json.success) {
+      showNotice("saveNotice", "ok", json.message || "저장되었습니다.");
+      loadUnpaidCount();
+      loadTodayCount();
+    } else {
+      showNotice("saveNotice", "err", json.message || "저장에 실패했습니다.");
+    }
+  } catch (err) {
+    showNotice("saveNotice", "err", "저장 중 오류가 발생했습니다. 웹앱 배포 권한을 확인해주세요.");
+  }
+
+  resetButton();
+}
+
+function resetButton() {
+  const btn = document.getElementById("saveBtn");
+  btn.disabled = false;
+  btn.textContent = "저장하기";
+}
+
+function clearForm() {
+  document.getElementById("keyword").value = "";
+  document.getElementById("resultBox").innerHTML = "";
+  clearNotice("searchNotice");
+  clearNotice("saveNotice");
+
+  const today = new Date();
+  document.getElementById("date").value = today.toISOString().slice(0, 10);
+  document.getElementById("store").value = "소바공방 평촌점";
+  document.getElementById("name").value = "";
+  document.getElementById("allowance").value = "";
+  document.getElementById("job").value = "";
+  document.getElementById("rrn").value = "";
+  document.getElementById("bank").value = "";
+  document.getElementById("phone").value = "";
+  document.getElementById("account").value = "";
+  document.getElementById("memo").value = "";
+  document.getElementById("payStatus").value = "미지급";
 }
 
 async function loadUnpaidCount(){
-
   try{
-
-    const url =
-      API_URL +
-      "?action=getDailyUnpaidCount&t=" +
-      Date.now();
-
-    const res = await fetch(url);
+    const res = await fetch(API_URL + "?action=getDailyUnpaidCount&t=" + Date.now());
     const data = await res.json();
-
-    const count =
-      Number(data.count || 0);
-
-    document.getElementById("unpaidCount").textContent =
-      count;
-
+    document.getElementById("unpaidCount").textContent = Number(data.count || 0);
   }catch(e){
-
     console.log(e);
-
   }
-
 }
 
+async function loadTodayCount(){
+  try{
+    const res = await fetch(API_URL + "?action=getTodayDailyWorkerCount&t=" + Date.now());
+    const data = await res.json();
+    document.getElementById("todayCount").textContent = Number(data.count || 0);
+  }catch(e){
+    console.log(e);
+  }
+}
 </script>
 
 </body>
