@@ -141,7 +141,7 @@ button:disabled{
 
 <header class="header">
   <h1>소바공방 평촌점 직원정보 입력</h1>
-  <p>직원 기본정보를 평촌 직원정보 시트에 저장합니다.</p>
+  <p>입력한 직원정보는 평촌 직원정보 시트와 본사 인사관리대장에 함께 저장됩니다.</p>
 </header>
 
 <main class="container">
@@ -152,8 +152,8 @@ button:disabled{
     <div class="form-grid">
 
       <label>
-        매장명
-        <input id="store" type="text" value="소바공방 평촌점" readonly>
+        소속
+        <input id="workplace" type="text" value="소바공방 평촌점" readonly>
       </label>
 
       <label>
@@ -163,12 +163,12 @@ button:disabled{
 
       <label>
         휴대폰
-        <input id="phone" type="tel" placeholder="010-0000-0000">
+        <input id="phone" type="tel" inputmode="numeric" maxlength="13" placeholder="010-0000-0000">
       </label>
 
       <label>
         주민번호
-        <input id="rrn" type="text" placeholder="000000-0000000">
+        <input id="rrn" type="text" inputmode="numeric" maxlength="14" placeholder="000000-0000000">
       </label>
 
       <label>
@@ -187,26 +187,18 @@ button:disabled{
       </label>
 
       <label>
-        직급
-        <select id="position">
-          <option value="">선택</option>
-          <option>점장</option>
-          <option>매니저</option>
-          <option>직원</option>
-          <option>파트타이머</option>
-          <option>일용직</option>
-        </select>
+        직위
+        <input id="position" type="text" placeholder="예: 직원, 조리, 매니저">
       </label>
 
       <label>
         고용형태
         <select id="employmentType">
           <option value="">선택</option>
-          <option>정규직</option>
-          <option>계약직</option>
-          <option>아르바이트</option>
-          <option>일용직</option>
-          <option>사업소득자</option>
+          <option value="정규직 근로계약서">정규직 근로계약서</option>
+          <option value="계약직(아르바이트)">계약직(아르바이트)</option>
+          <option value="사업소득자 용역계약서">사업소득자 용역계약서</option>
+          <option value="일용직">일용직</option>
         </select>
       </label>
 
@@ -261,80 +253,214 @@ button:disabled{
 </main>
 
 <script>
-const API_URL =
+const PYEONGCHON_API_URL =
   "https://script.google.com/macros/s/AKfycbx6g5ZsRuTOTVkSDDvDmoG66kaUZ32ff6OLg5tuTEZCL9vw_99DoiJkaOnAXadPOeydsg/exec";
+
+const HQ_API_URL =
+  "https://script.google.com/macros/s/AKfycbzCO4TLMRGgt_OY-3T92mw58AAKcOwquq0ubepUEJgPO9YPeMV-hNeP7AHy7lvOPog7oQ/exec";
+
+const phoneInput = document.getElementById("phone");
+const rrnInput = document.getElementById("rrn");
+const birthInput = document.getElementById("birth");
+
+phoneInput.addEventListener("input", function(){
+  this.value = formatPhone(this.value);
+});
+
+rrnInput.addEventListener("input", function(){
+  this.value = formatRRN(this.value);
+  setBirthFromRRN(this.value);
+});
 
 function val(id){
   return document.getElementById(id).value.trim();
 }
 
-function showNotice(id,type,msg){
-  const el = document.getElementById(id);
+function onlyNumber(value){
+  return String(value || "").replace(/[^0-9]/g, "");
+}
+
+function formatPhone(value){
+  const num = onlyNumber(value).slice(0,11);
+
+  if(num.length <= 3){
+    return num;
+  }
+
+  if(num.length <= 7){
+    return num.replace(/(\d{3})(\d+)/, "$1-$2");
+  }
+
+  return num.replace(/(\d{3})(\d{4})(\d{0,4})/, "$1-$2-$3");
+}
+
+function formatRRN(value){
+  const num = onlyNumber(value).slice(0,13);
+
+  if(num.length <= 6){
+    return num;
+  }
+
+  return num.replace(/(\d{6})(\d{0,7})/, "$1-$2");
+}
+
+function setBirthFromRRN(rrn){
+  const num = onlyNumber(rrn);
+
+  if(num.length < 6){
+    birthInput.value = "";
+    return;
+  }
+
+  const yy = Number(num.slice(0,2));
+  const mm = num.slice(2,4);
+  const dd = num.slice(4,6);
+  const genderCode = num.slice(6,7);
+
+  let century = "19";
+
+  if(genderCode === "3" || genderCode === "4" || genderCode === "7" || genderCode === "8"){
+    century = "20";
+  }
+
+  if(!genderCode){
+    const currentYY = Number(String(new Date().getFullYear()).slice(2));
+    century = yy <= currentYY ? "20" : "19";
+  }
+
+  const yyyy = century + String(yy).padStart(2,"0");
+  const birth = `${yyyy}-${mm}-${dd}`;
+
+  const d = new Date(birth);
+
+  if(
+    d instanceof Date &&
+    !isNaN(d) &&
+    String(d.getFullYear()) === yyyy &&
+    String(d.getMonth() + 1).padStart(2,"0") === mm &&
+    String(d.getDate()).padStart(2,"0") === dd
+  ){
+    birthInput.value = birth;
+  }
+}
+
+function showNotice(type,msg){
+  const el = document.getElementById("saveNotice");
   el.className = "notice " + type;
   el.textContent = msg;
 }
 
-function clearNotice(id){
-  const el = document.getElementById(id);
+function clearNotice(){
+  const el = document.getElementById("saveNotice");
   el.className = "notice";
   el.textContent = "";
 }
 
+async function postJson(url,data){
+  const res = await fetch(url,{
+    method:"POST",
+    body:JSON.stringify(data)
+  });
+  return await res.json();
+}
+
 async function saveEmployee(){
-  clearNotice("saveNotice");
+  clearNotice();
 
   const btn = document.getElementById("saveBtn");
   btn.disabled = true;
   btn.textContent = "저장 중...";
 
-  const data = {
-    action:"saveEmployee",
-    store:val("store"),
-    name:val("name"),
-    phone:val("phone"),
-    rrn:val("rrn"),
-    birth:val("birth"),
-    address:val("address"),
-    bank:val("bank"),
-    account:val("account"),
-    joinDate:val("joinDate"),
-    leaveDate:val("leaveDate"),
-    position:val("position"),
-    employmentType:val("employmentType"),
-    department:val("department"),
-    status:val("status"),
-    memo:val("memo")
+  const workplace = val("workplace");
+  const name = val("name");
+  const phone = formatPhone(val("phone"));
+  const rrn = formatRRN(val("rrn"));
+  const rrnNumber = onlyNumber(rrn);
+
+  if(!name){
+    showNotice("err","직원명을 입력해주세요.");
+    resetButton();
+    return;
+  }
+
+  if(onlyNumber(phone).length < 10){
+    showNotice("err","휴대폰 번호를 정확히 입력해주세요.");
+    resetButton();
+    return;
+  }
+
+  if(rrnNumber.length !== 13){
+    showNotice("err","주민번호 13자리를 정확히 입력해주세요.");
+    resetButton();
+    return;
+  }
+
+  const commonData = {
+    workplace: workplace,
+    workPlace: workplace,
+    store: workplace,
+
+    name: name,
+    empName: name,
+    phone: phone,
+
+    rrn: rrn,
+    residentNo: rrn,
+    birth: val("birth"),
+
+    address: val("address"),
+    bank: val("bank"),
+    account: val("account"),
+
+    position: val("position"),
+    employmentType: val("employmentType"),
+    contractType: val("employmentType"),
+
+    department: val("department"),
+    status: val("status"),
+
+    joinDate: val("joinDate"),
+    startDate: val("joinDate"),
+    leaveDate: val("leaveDate"),
+    endDate: val("leaveDate"),
+
+    memo: val("memo"),
+    jobDuty: val("memo")
   };
 
-  if(!data.name){
-    showNotice("saveNotice","err","직원명을 입력해주세요.");
-    resetButton();
-    return;
-  }
-
-  if(!data.phone){
-    showNotice("saveNotice","err","휴대폰 번호를 입력해주세요.");
-    resetButton();
-    return;
-  }
-
   try{
-    const res = await fetch(API_URL,{
-      method:"POST",
-      body:JSON.stringify(data)
-    });
+    const pyeongchonData = {
+      action:"saveEmployee",
+      ...commonData
+    };
 
-    const json = await res.json();
+    const hqData = {
+      action:"saveEmployeeFromContract",
+      ...commonData
+    };
 
-    if(json.success){
-      showNotice("saveNotice","ok",json.message || "저장되었습니다.");
-      clearForm();
-    }else{
-      showNotice("saveNotice","err",json.message || "저장 실패");
+    const pResult = await postJson(PYEONGCHON_API_URL,pyeongchonData);
+
+    if(!pResult.success){
+      showNotice("err",pResult.message || "평촌 직원정보 저장 실패");
+      resetButton();
+      return;
     }
 
+    const hqResult = await postJson(HQ_API_URL,hqData);
+
+    if(!hqResult.success){
+      showNotice("err",hqResult.message || "본사 인사관리대장 저장 실패");
+      resetButton();
+      return;
+    }
+
+    showNotice("ok","평촌 직원정보와 본사 인사관리대장에 모두 저장되었습니다.");
+    clearForm();
+
   }catch(e){
-    showNotice("saveNotice","err","저장 중 오류가 발생했습니다.");
+    console.error(e);
+    showNotice("err","저장 중 오류가 발생했습니다.");
   }
 
   resetButton();
@@ -349,12 +475,11 @@ function resetButton(){
 function clearForm(){
   [
     "name","phone","rrn","birth","address","bank","account",
-    "joinDate","leaveDate","memo"
+    "position","joinDate","leaveDate","memo"
   ].forEach(id => {
     document.getElementById(id).value = "";
   });
 
-  document.getElementById("position").value = "";
   document.getElementById("employmentType").value = "";
   document.getElementById("department").value = "";
   document.getElementById("status").value = "재직";
