@@ -235,12 +235,17 @@ button:disabled{
       </label>
 
       <label class="full">
-        성함 또는 전화번호 검색
-        <input type="text"
-               id="searchKeyword"
-               placeholder="성함 또는 전화번호 입력"
-               oninput="searchWorker()" />
-      </label>
+  성함 또는 전화번호 검색
+  <input type="text"
+         id="searchKeyword"
+         placeholder="성함 또는 전화번호 입력" />
+</label>
+
+<div class="full">
+  <button type="button" onclick="searchWorker()">
+    검색하기
+  </button>
+</div>
 
     </div>
 
