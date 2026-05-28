@@ -1,4 +1,4 @@
-const CACHE_NAME = "sobagongbang-pyeongchon-v1";
+const CACHE_NAME = "sobagongbang-pyeongchon-v2";
 
 const urlsToCache = [
   "./",
