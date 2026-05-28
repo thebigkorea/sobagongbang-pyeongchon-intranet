@@ -250,27 +250,6 @@ button:disabled{
       </label>
 
       <label>
-        급여형태
-        <select id="salaryType">
-          <option value="">선택</option>
-          <option>월급</option>
-          <option>시급</option>
-          <option>일급</option>
-          <option>사업소득</option>
-        </select>
-      </label>
-
-      <label>
-        시급
-        <input id="hourlyPay" type="number" placeholder="예: 10030">
-      </label>
-
-      <label>
-        월급
-        <input id="monthlyPay" type="number" placeholder="예: 2500000">
-      </label>
-
-      <label>
         부서
         <select id="department">
           <option value="">선택</option>
@@ -418,9 +397,6 @@ async function saveEmployee(){
     leaveDate:val("leaveDate"),
     position:val("position"),
     employmentType:val("employmentType"),
-    salaryType:val("salaryType"),
-    hourlyPay:val("hourlyPay"),
-    monthlyPay:val("monthlyPay"),
     department:val("department"),
     status:val("status"),
     memo:val("memo")
@@ -472,14 +448,13 @@ function clearForm(){
 
   [
     "name","phone","rrn","birth","address","bank","account",
-    "joinDate","leaveDate","hourlyPay","monthlyPay","memo"
+    "joinDate","leaveDate","memo"
   ].forEach(id => {
     document.getElementById(id).value = "";
   });
 
   document.getElementById("position").value = "";
   document.getElementById("employmentType").value = "";
-  document.getElementById("salaryType").value = "";
   document.getElementById("department").value = "";
   document.getElementById("status").value = "재직";
 }
